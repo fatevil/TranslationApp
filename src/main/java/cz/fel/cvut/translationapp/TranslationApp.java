@@ -7,9 +7,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * @author Marek Kozlovsky
  */
 @SpringBootApplication
-public class ReactAndSpringDataRestApplication {
+public class TranslationApp {
 
 	public static void main(String[] args) {
-		SpringApplication.run(ReactAndSpringDataRestApplication.class, args);
+		SpringApplication.run(TranslationApp.class, args);
 	}
 }

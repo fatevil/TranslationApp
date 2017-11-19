@@ -8,10 +8,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
+import cz.fel.cvut.translationapp.api.DummyTranslation;
+import cz.fel.cvut.translationapp.api.TranslationProvider;
 import cz.fel.cvut.translationapp.model.Admin;
 import cz.fel.cvut.translationapp.model.LoggedEvent;
 import cz.fel.cvut.translationapp.model.User;
 import cz.fel.cvut.translationapp.service.repository.AdminRepository;
+import cz.fel.cvut.translationapp.service.repository.DummyTranslationRepository;
 import cz.fel.cvut.translationapp.service.repository.UserRepository;
 
 /**
@@ -22,11 +25,17 @@ public class DatabaseLoader implements CommandLineRunner {
 
 	private final UserRepository userRepository;
 	private final AdminRepository adminRepository;
+	private final DummyTranslationRepository translationRepository;
+	private final TranslationProvider<DummyTranslation> dummyTranslationProvider;
 
 	@Autowired
-	public DatabaseLoader(UserRepository userRepository, AdminRepository adminRepository) {
+	public DatabaseLoader(UserRepository userRepository, AdminRepository adminRepository,
+			DummyTranslationRepository translationRepository,
+			TranslationProvider<DummyTranslation> dummyTranslationProvider) {
 		this.userRepository = userRepository;
 		this.adminRepository = adminRepository;
+		this.translationRepository = translationRepository;
+		this.dummyTranslationProvider = dummyTranslationProvider;
 	}
 
 	@Override
@@ -54,8 +63,12 @@ public class DatabaseLoader implements CommandLineRunner {
 		u1.getFriends().add(u3);
 		u1 = userRepository.save(u1);
 
-		for (User user : userRepository.findAll()) {
-			System.out.println(user);
-		}
+		DummyTranslation translation = this.dummyTranslationProvider.translate("Hi there!", "cz", "en");
+		System.out.println(translation);
+		translationRepository.save(translation);
+
+		// for (User user : userRepository.findAll()) {
+		// System.out.println(user);
+		// }
 	}
 }

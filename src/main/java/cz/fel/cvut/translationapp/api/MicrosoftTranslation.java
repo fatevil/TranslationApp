@@ -6,13 +6,15 @@ import cz.fel.cvut.translationapp.model.Translation;
 import cz.fel.cvut.translationapp.model.User;
 
 @Entity
-public class DummyTranslation extends Translation {
+public class MicrosoftTranslation extends Translation{
 
-	public DummyTranslation() {
+	public MicrosoftTranslation() {
+		super();
 	}
 
-	public DummyTranslation(User user, String textFrom, String textTo, String text) {
+	public MicrosoftTranslation(User user, String textFrom, String textTo, String text) {
 		super(user, textFrom, textTo, text);
 	}
+	
 	
 }

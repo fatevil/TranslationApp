@@ -83,21 +83,21 @@
 			value: function loadFromServer(pageSize) {
 				var _this2 = this;
 	
-				follow(client, root, [{ rel: 'employees', params: { size: pageSize } }]).then(function (employeeCollection) {
+				follow(client, root, [{ rel: 'users', params: { size: pageSize } }]).then(function (employeeCollection) {
 					return client({
 						method: 'GET',
-						path: employeeCollection.entity._links.profile.href,
+						path: userCollection.entity._links.profile.href,
 						headers: { 'Accept': 'application/schema+json' }
 					}).then(function (schema) {
 						_this2.schema = schema.entity;
-						return employeeCollection;
+						return userCollection;
 					});
-				}).done(function (employeeCollection) {
+				}).done(function (userCollection) {
 					_this2.setState({
-						employees: employeeCollection.entity._embedded.employees,
+						users: userCollection.entity._embedded.user,
 						attributes: Object.keys(_this2.schema.properties),
 						pageSize: pageSize,
-						links: employeeCollection.entity._links });
+						links: userCollection.entity._links });
 				});
 			}
 		}, {

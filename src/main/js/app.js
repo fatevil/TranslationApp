@@ -21,22 +21,22 @@ class App extends React.Component {
 
 	loadFromServer(pageSize) {
 		follow(client, root, [
-			{rel: 'employees', params: {size: pageSize}}]
+			{rel: 'users', params: {size: pageSize}}]
 		).then(employeeCollection => {
 			return client({
 				method: 'GET',
-				path: employeeCollection.entity._links.profile.href,
+				path: userCollection.entity._links.profile.href,
 				headers: {'Accept': 'application/schema+json'}
 			}).then(schema => {
 				this.schema = schema.entity;
-				return employeeCollection;
+				return userCollection;
 			});
-		}).done(employeeCollection => {
+		}).done(userCollection => {
 			this.setState({
-				employees: employeeCollection.entity._embedded.employees,
+				users: userCollection.entity._embedded.user,
 				attributes: Object.keys(this.schema.properties),
 				pageSize: pageSize,
-				links: employeeCollection.entity._links});
+				links: userCollection.entity._links});
 		});
 	}
 	
