@@ -18,7 +18,6 @@ public class TranslationController {
 			TranslationProvider<DummyTranslation> dummyTranslationProvider) {
 		this.dummyTranslationProvider = dummyTranslationProvider;
 		this.msTranslationProvider = msTranslationProvider;
-
 	}
 
 }

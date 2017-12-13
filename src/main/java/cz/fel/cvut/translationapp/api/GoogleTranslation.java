@@ -6,12 +6,12 @@ import cz.fel.cvut.translationapp.model.Translation;
 import cz.fel.cvut.translationapp.model.User;
 
 @Entity
-public class DummyTranslation extends Translation {
-
-	public DummyTranslation() {
+public class GoogleTranslation extends Translation {
+	public GoogleTranslation() {
+		
 	}
 
-	public DummyTranslation(User user, String textFrom, String textTo, String textOriginal, String textTranslated) {
+	public GoogleTranslation(User user, String textFrom, String textTo, String textOriginal, String textTranslated) {
 		super(user, textFrom, textTo, textOriginal, textTranslated);
 		// TODO Auto-generated constructor stub
 	}

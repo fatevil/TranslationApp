@@ -68,7 +68,15 @@
 			<version>0.7-SNAPSHOT</version>
 			<type>jar</type>
 		</dependency>
-
+		
+		
+		<!-- AssertJ - testing -->
+		<dependency>
+		  <groupId>org.assertj</groupId>
+		  <artifactId>assertj-core</artifactId>
+		  <version>3.8.0</version>
+		  <scope>test</scope>
+		</dependency>
 
 	</dependencies>
 

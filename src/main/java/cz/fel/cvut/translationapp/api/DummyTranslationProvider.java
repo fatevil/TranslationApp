@@ -11,7 +11,7 @@ public class DummyTranslationProvider implements TranslationProvider<DummyTransl
 	
 	@Override
 	public DummyTranslation translate(String text, String from, String to) throws Exception {
-		return new DummyTranslation(null, "cz", "en", "Nazdárek!");
+		return new DummyTranslation(null, "cz", "en", "Nazdárek!", "Hi there!");
 	}
 
 }

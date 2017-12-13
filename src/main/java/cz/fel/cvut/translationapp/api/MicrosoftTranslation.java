@@ -12,9 +12,10 @@ public class MicrosoftTranslation extends Translation{
 		super();
 	}
 
-	public MicrosoftTranslation(User user, String textFrom, String textTo, String text) {
-		super(user, textFrom, textTo, text);
+	public MicrosoftTranslation(User user, String textFrom, String textTo, String textOriginal, String textTranslated) {
+		super(user, textFrom, textTo, textOriginal, textTranslated);
+		// TODO Auto-generated constructor stub
 	}
-	
+
 	
 }

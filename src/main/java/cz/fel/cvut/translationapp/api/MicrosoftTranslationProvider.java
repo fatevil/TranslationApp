@@ -17,7 +17,8 @@ public class MicrosoftTranslationProvider implements TranslationProvider<Microso
 		String translatedText = null;
 		translatedText = Translate.execute(text, Language.CZECH,Language.ENGLISH);
 
-		return new MicrosoftTranslation(null, "cz", "en", translatedText);
+//		return new MicrosoftTranslation(null, "cz", "en", translatedText);
+		return null;
 	}
 
 	private final String CLIENT_ID = "12345789741852963";

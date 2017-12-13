@@ -1,5 +1,6 @@
 package cz.fel.cvut.translationapp.model;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
@@ -15,9 +16,11 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.persistence.UniqueConstraint;
 
+import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.validator.constraints.Email;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.Data;
 import lombok.ToString;
@@ -42,17 +45,19 @@ public class User {
 	@Email
 	@Column(unique = true)
 	private String email;
-
+	
+	@JsonIgnore
 	private String password;
 
-	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private Set<Translation> translations;
 
-	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	@JoinTable(name = "friends", 	
-	joinColumns = @JoinColumn(name = "user_1_id", referencedColumnName = "id"), 
-	inverseJoinColumns = @JoinColumn(name = "user_2_id", referencedColumnName = "id"))
+	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@JoinTable(name = "friends", joinColumns = @JoinColumn(name = "user_1_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "user_2_id", referencedColumnName = "id"))
 	private List<User> friends;
+
+	@CreationTimestamp
+	private Date creationDate;
 
 	public User() {
 	}

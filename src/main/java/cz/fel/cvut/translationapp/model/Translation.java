@@ -1,5 +1,7 @@
 package cz.fel.cvut.translationapp.model;
 
+import java.util.Date;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -9,9 +11,15 @@ import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import org.hibernate.annotations.CreationTimestamp;
+
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
 @Data
+@ToString(exclude = "user")
+@EqualsAndHashCode(exclude="user")
 @Entity
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public abstract class Translation {
@@ -27,17 +35,24 @@ public abstract class Translation {
 	private String textFrom;
 
 	private String textTo;
+
+	private String textTranslated;
 	
-	private String text;
+
+	private String textOriginal;
+
+	@CreationTimestamp
+	private Date creationDate;
 
 	public Translation() {
 	}
 
-	public Translation(User user, String textFrom, String textTo, String text) {
+	public Translation(User user, String textFrom, String textTo, String textOriginal, String textTranslated) {
 		this.user = user;
 		this.textFrom = textFrom;
 		this.textTo = textTo;
-		this.text = text;
+		this.textOriginal = textOriginal;
+		this.textTranslated = textTranslated;
 	}
 
 }

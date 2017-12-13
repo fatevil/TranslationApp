@@ -16,7 +16,7 @@ import lombok.Data;
 @Data
 public class Admin extends User {
 
-	@OneToMany(mappedBy = "admin", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "admin", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private Set<LoggedEvent> loggedEvents;
 
 	public Admin() {
@@ -27,4 +27,10 @@ public class Admin extends User {
 		super(email, password);
 	}
 
+	@Override
+	public String toString() {
+		return "Admin [loggedEvents=" + loggedEvents + ", getId()=" + getId() + ", getEmail()=" + getEmail()
+				+ ", getTranslations()=" + getTranslations() + ", getFriends()=" + getFriends() + ", getCreationDate()="
+				+ getCreationDate() + ", toString()=" + super.toString() + ", getClass()=" + getClass() + "]";
+	}
 }
