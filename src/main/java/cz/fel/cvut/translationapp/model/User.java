@@ -19,6 +19,8 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.validator.constraints.Email;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -35,8 +37,7 @@ import lombok.ToString;
 @Table(name = "user")
 public class User {
 
-	// public static final PasswordEncoder PASSWORD_ENCODER = new
-	// BCryptPasswordEncoder();
+	public static final PasswordEncoder PASSWORD_ENCODER = new BCryptPasswordEncoder();
 
 	@Id
 	@GeneratedValue
@@ -44,8 +45,8 @@ public class User {
 
 	@Email
 	@Column(unique = true)
-	private String email;
-	
+	private String email;	
+
 	@JsonIgnore
 	private String password;
 
@@ -58,18 +59,18 @@ public class User {
 
 	@CreationTimestamp
 	private Date creationDate;
-
+	
 	public User() {
 	}
 
 	public User(String email, String password) {
 
 		this.email = email;
-		this.password = password;
+		setPassword(password);
 	}
 
-	// public void setPassword(String password) {
-	// this.password = PASSWORD_ENCODER.encode(password);
-	// }
+	public void setPassword(String password) {
+		this.password = PASSWORD_ENCODER.encode(password);
+	}
 
 }

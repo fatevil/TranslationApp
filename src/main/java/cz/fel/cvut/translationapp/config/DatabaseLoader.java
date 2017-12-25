@@ -47,7 +47,15 @@ public class DatabaseLoader implements CommandLineRunner {
 
 	@Override
 	public void run(String... strings) throws Exception {
+		
 		// roleRepository.save(entities);
+		userRepository.deleteAll();
+		for (int i = 0; i < 5; i++) {
+			User user = new User("john@ahoj.cz" + i, "bobek");
+			user.setTranslations(new HashSet<>());
+			userRepository.save(user);
+			
+		}
 
 		Iterable<User> users = userRepository.findAll();
 		for (User user : users) {
@@ -62,6 +70,10 @@ public class DatabaseLoader implements CommandLineRunner {
 				translation = translationRepository.save(translation);
 
 				Hibernate.initialize(user.getTranslations());
+				while (!Hibernate.isInitialized(user.getTranslations())) {
+					Thread.sleep(1000);
+					System.out.println("waiting");
+				}
 
 				user.getTranslations().add(translation);
 				System.out.println("     " + translation);
@@ -69,7 +81,6 @@ public class DatabaseLoader implements CommandLineRunner {
 			user = userRepository.save(user);
 			System.out.println(randomInt);
 			System.out.println("hi " + user);
-			
 
 		}
 
@@ -91,7 +102,7 @@ public class DatabaseLoader implements CommandLineRunner {
 			}
 			admin = adminRepository.save(admin);
 			System.out.println("admin je tu : " + admin);
-		}	
+		}
 
 	}
 }

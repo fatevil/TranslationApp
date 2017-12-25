@@ -8,6 +8,7 @@ const Main = require('./components/Main');
 const Home = require('./components/Home');
 const UserOverview = require('./components/users/UserOverview');	
 const AdminUsersOverview = require('./components/admin/AdminUsersOverview');
+const Login = require('./auth/Login');
 const AdminUserProfile= require('./components/admin/AdminUserProfile');
 import { Switch, Route } from 'react-router-dom'
 
@@ -23,7 +24,8 @@ class App extends React.Component {
 				  <div>
 						<Route path='/' exact={true} component={AdminUsersOverview}/>  
 						<Route path='/user' component={AdminUserProfile}/>
-				  </div>
+						<Route path="/login" exact component={Login} />
+					</div>
 				);
 	}
 }

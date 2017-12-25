@@ -9,4 +9,6 @@ import cz.fel.cvut.translationapp.model.User;
  */
 public interface UserRepository extends PagingAndSortingRepository<User, Long> {
 
+	User findByEmail(String email);
+
 }
