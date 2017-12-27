@@ -8,18 +8,47 @@
 	integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb"
 	crossorigin="anonymous" />
 <style>
- .dl-horizontal dt {
-    float: left;
-    width: 160px;
-    clear: left;
-    text-align: right;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-  }
-  .dl-horizontal dd {
-    margin-left: 180px;
-  }
+.dl-horizontal dt {
+	float: left;
+	width: 160px;
+	clear: left;
+	text-align: right;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+.dl-horizontal dd {
+	margin-left: 180px;
+}
+
+button {
+	margin-left: 10px;
+	margin-right: 10px;
+}
+
+.header {
+	margin: 50px;
+}
+
+.header button:hover {
+	border: #007bff solid 1px;
+	text-decoration: none;
+	text-color: #007bff;
+}
+
+.bottom-space {
+	margin-bottom: 10px;
+}
+
+.translation-table {
+	margin-top: 30px;
+	margin-bottom: 50px;
+}
+
+.clear-floating {
+	clear: both;
+}
 </style>
 </head>
 
@@ -28,10 +57,6 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-lg-12 text-center">
-				<a href="http://localhost:8080/"><h1 class="mt-5">A
-						Bootstrap 4 Starter Template</h1></a>
-				<p class="lead">Complete with pre-defined file paths and
-					responsive navigation!</p>
 				<div id="react"></div>
 			</div>
 		</div>

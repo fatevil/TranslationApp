@@ -57,6 +57,8 @@ public class User {
 	@JoinTable(name = "friends", joinColumns = @JoinColumn(name = "user_1_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "user_2_id", referencedColumnName = "id"))
 	private List<User> friends;
 
+	private boolean admin = false;
+	
 	@CreationTimestamp
 	private Date creationDate;
 	

@@ -11,6 +11,7 @@ const AdminUsersOverview = require('./components/admin/AdminUsersOverview');
 const Login = require('./auth/Login');
 const AdminUserProfile= require('./components/admin/AdminUserProfile');
 import { Switch, Route } from 'react-router-dom'
+const Header = require('./components/Header');
 
 class App extends React.Component {
 
@@ -22,9 +23,12 @@ class App extends React.Component {
 	render() {
 		return (
 				  <div>
+				  		<Header/>
 						<Route path='/' exact={true} component={AdminUsersOverview}/>  
 						<Route path='/user' component={AdminUserProfile}/>
 						<Route path="/login" exact component={Login} />
+						<Route path="/translate" exact component={Home} />
+						<Route path="/friendlist" exact component={Home} />
 					</div>
 				);
 	}

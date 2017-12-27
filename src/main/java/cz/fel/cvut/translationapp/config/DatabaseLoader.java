@@ -10,8 +10,8 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
-import cz.fel.cvut.translationapp.api.DummyTranslation;
 import cz.fel.cvut.translationapp.api.TranslationProvider;
+import cz.fel.cvut.translationapp.api.dummy.DummyTranslation;
 import cz.fel.cvut.translationapp.model.Admin;
 import cz.fel.cvut.translationapp.model.LoggedEvent;
 import cz.fel.cvut.translationapp.model.User;
@@ -59,13 +59,10 @@ public class DatabaseLoader implements CommandLineRunner {
 
 		Iterable<User> users = userRepository.findAll();
 		for (User user : users) {
-			Random random = new Random(20);
-			// int randomInt = random.nextInt();
-			int randomInt = 10;
+			int randomInt = 5;
 
 			for (int i = 0; i < randomInt; i++) {
-				String uuid = UUID.randomUUID().toString();
-				DummyTranslation translation = dummyTranslationProvider.translate(uuid.substring(0, 15), "cz", "en");
+				DummyTranslation translation = dummyTranslationProvider.translate("Nazdárek!", "cz", "en");
 				translation.setUser(user);
 				translation = translationRepository.save(translation);
 
@@ -84,6 +81,11 @@ public class DatabaseLoader implements CommandLineRunner {
 
 		}
 
+		Admin adminToSave = new Admin("admin@admin.cz", "bobek");
+		adminToSave.setTranslations(new HashSet<>());
+		adminToSave.setLoggedEvents(new HashSet<>());
+		adminRepository.save(adminToSave);
+		
 		int o = 0;
 		Iterable<Admin> admins = adminRepository.findAll();
 		for (Admin admin : admins) {

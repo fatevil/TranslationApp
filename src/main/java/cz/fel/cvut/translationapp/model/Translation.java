@@ -13,6 +13,8 @@ import javax.persistence.ManyToOne;
 
 import org.hibernate.annotations.CreationTimestamp;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
@@ -28,6 +30,7 @@ public abstract class Translation {
 	@GeneratedValue(strategy = GenerationType.TABLE)
 	private Long id;
 
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name = "user_id")
 	private User user;
@@ -38,8 +41,9 @@ public abstract class Translation {
 
 	private String textTranslated;
 	
-
 	private String textOriginal;
+	
+	protected String provider;
 
 	@CreationTimestamp
 	private Date creationDate;
@@ -55,4 +59,10 @@ public abstract class Translation {
 		this.textTranslated = textTranslated;
 	}
 
+	public Translation(String textFrom, String textTo, String textOriginal, String textTranslated) {
+		this.textFrom = textFrom;
+		this.textTo = textTo;
+		this.textOriginal = textOriginal;
+		this.textTranslated = textTranslated;
+	}
 }

@@ -6,7 +6,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.data.rest.core.config.RepositoryRestConfiguration;
 import org.springframework.data.rest.webmvc.config.RepositoryRestConfigurerAdapter;
 
-import cz.fel.cvut.translationapp.api.DummyTranslation;
+import cz.fel.cvut.translationapp.api.dummy.DummyTranslation;
 import cz.fel.cvut.translationapp.model.Admin;
 import cz.fel.cvut.translationapp.model.LoggedEvent;
 import cz.fel.cvut.translationapp.model.User;
