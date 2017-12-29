@@ -19,12 +19,6 @@ public class HomeController {
 	@Autowired
 	private BeanFactory beanFactory;
 
-	@RequestMapping(value = "/current", method = RequestMethod.POST)
-	public @ResponseBody User currentUser() {
-		Authentication auth = beanFactory.getBean(Authentication.class);
-		return auth.getCurrentUser();
-	}
-
 	@RequestMapping(value = "/*")
 	public String index() {
 		return "index";

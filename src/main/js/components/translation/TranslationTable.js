@@ -30,7 +30,9 @@ class TranslationTable extends React.Component{
 							<th>To</th>
 							<th>Original</th>
 							<th>Translated</th>
-							<th></th>
+							{ this.props.canDelete && this.props.canDelete == true &&
+								<th></th>
+							}
 						</tr>
 					</thead>
 				}

@@ -9,7 +9,7 @@ class TranslationRow extends React.Component{
 	
 	constructor(props) {
 		super(props);		
-		this.state = {render: true};
+		this.state = {render: true, admin: false};
 
 	}
 
@@ -34,9 +34,11 @@ class TranslationRow extends React.Component{
 				<td>{this.props.translation.textOriginal}</td>
 				<td>{this.props.translation.textTranslated}</td>
 				<td>
-				<button type="button" className="btn btn-danger btn-sm" onClick={(e) => this.handleDelete(e)}>	
-			    	Delete
-			    </button>	
+				{ this.props.canDelete && this.props.canDelete == true &&
+					<button type="button" className="btn btn-danger btn-sm" onClick={(e) => this.handleDelete(e)}>	
+				    	Delete
+				    </button>	   	
+				}
 				</td>
 			</tr>
 		)

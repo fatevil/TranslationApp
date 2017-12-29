@@ -19,7 +19,7 @@ public class Admin extends User {
 	@OneToMany(mappedBy = "admin", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private Set<LoggedEvent> loggedEvents;
 
-	private boolean admin = true;
+	private final boolean admin = true;
 	
 	public Admin() {
 		super();
@@ -34,5 +34,8 @@ public class Admin extends User {
 		return "Admin [loggedEvents=" + loggedEvents + ", getId()=" + getId() + ", getEmail()=" + getEmail()
 				+ ", getTranslations()=" + getTranslations() + ", getFriends()=" + getFriends() + ", getCreationDate()="
 				+ getCreationDate() + ", admin=true]";
+	}
+	public boolean isAdmin() {
+		return admin;
 	}
 }

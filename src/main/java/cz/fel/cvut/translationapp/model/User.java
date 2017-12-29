@@ -25,6 +25,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
 /**
@@ -33,8 +34,9 @@ import lombok.ToString;
 @Data
 @Entity
 @Inheritance
-@ToString(exclude = "password")
+@ToString(exclude = {"password", "friends"})
 @Table(name = "user")
+@EqualsAndHashCode(exclude="friends")
 public class User {
 
 	public static final PasswordEncoder PASSWORD_ENCODER = new BCryptPasswordEncoder();
@@ -53,11 +55,12 @@ public class User {
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private Set<Translation> translations;
 
+	@JsonIgnore
 	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@JoinTable(name = "friends", joinColumns = @JoinColumn(name = "user_1_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "user_2_id", referencedColumnName = "id"))
-	private List<User> friends;
+	private Set<User> friends;
 
-	private boolean admin = false;
+	private final boolean admin = false;
 	
 	@CreationTimestamp
 	private Date creationDate;
@@ -75,4 +78,7 @@ public class User {
 		this.password = PASSWORD_ENCODER.encode(password);
 	}
 
+	public boolean isAdmin() {
+		return admin;
+	}
 }

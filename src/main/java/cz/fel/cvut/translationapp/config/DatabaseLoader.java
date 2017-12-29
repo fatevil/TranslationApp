@@ -48,13 +48,12 @@ public class DatabaseLoader implements CommandLineRunner {
 	@Override
 	public void run(String... strings) throws Exception {
 		
-		// roleRepository.save(entities);
 		userRepository.deleteAll();
 		for (int i = 0; i < 5; i++) {
 			User user = new User("john@ahoj.cz" + i, "bobek");
 			user.setTranslations(new HashSet<>());
-			userRepository.save(user);
-			
+			user.setFriends(new HashSet<>());
+			user = userRepository.save(user);
 		}
 
 		Iterable<User> users = userRepository.findAll();
@@ -75,6 +74,9 @@ public class DatabaseLoader implements CommandLineRunner {
 				user.getTranslations().add(translation);
 				System.out.println("     " + translation);
 			}
+			// add himself to his friendlist
+			user.getFriends().add(user);
+			
 			user = userRepository.save(user);
 			System.out.println(randomInt);
 			System.out.println("hi " + user);
@@ -83,6 +85,7 @@ public class DatabaseLoader implements CommandLineRunner {
 
 		Admin adminToSave = new Admin("admin@admin.cz", "bobek");
 		adminToSave.setTranslations(new HashSet<>());
+		adminToSave.setFriends(new HashSet<>());
 		adminToSave.setLoggedEvents(new HashSet<>());
 		adminRepository.save(adminToSave);
 		

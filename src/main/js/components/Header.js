@@ -3,8 +3,10 @@ const React = require('react');
 import { Link } from 'react-router-dom'
 import { Button } from "react-bootstrap/lib"
 
+
 class Header extends React.Component {
 	render (){
+		
 		return (
 				<div className="header">
 					<Link to={{ pathname: '/translate' }}>
@@ -12,10 +14,13 @@ class Header extends React.Component {
 					</Link>
 			    	<Link to={{ pathname: '/friendlist' }}>
 			    		<Button bsStyle="link">Friend list</Button>
-			    	</Link>	 
+			    	</Link>
+				    <Link to={{ pathname: '/user'}}>
+			    		<Button bsStyle="link">My Profile</Button>
+			    	</Link>
 				</div>
 		  );
-	}
+	} 
 }
 
 module.exports = Header;

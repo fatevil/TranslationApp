@@ -21,14 +21,9 @@ public class Authentication {
 	public User getCurrentUser() {
 		if (SecurityContextHolder.getContext().getAuthentication().getAuthorities().contains("ADMIN")) {
 			Admin admin = adminRepository.findByEmail(SecurityContextHolder.getContext().getAuthentication().getName());
-			admin.setFriends(null);
-			admin.setTranslations(null);
-			admin.setLoggedEvents(null);
 			return admin;
 		} else {
 			User user = userRepository.findByEmail(SecurityContextHolder.getContext().getAuthentication().getName());
-			user.setFriends(null);
-			user.setTranslations(null);
 			return user;
 		}
 	}
