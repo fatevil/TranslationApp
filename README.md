@@ -24,5 +24,16 @@ spring-boot:run
 
 Steps summarized above should lead a developer to it's quick deployment. It is a standard procedure for deploying Spring Boot app.
 
+Example data are imported manually in DatabaseLoader class. To try out: 
 
-Example data are imported manually in DatabaseLoader class. 
+
+Visit
+```
+localhost:8080
+```
+```
+Regular user: john@ahoj.cz0
+Admin: admin@admin.cz
+
+Password: bobek
+```
