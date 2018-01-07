@@ -33,6 +33,7 @@ class TranslationRow extends React.Component{
 				<td>{this.props.translation.textTo}</td>
 				<td>{this.props.translation.textOriginal}</td>
 				<td>{this.props.translation.textTranslated}</td>
+				<td>{this.props.translation.provider}</td>
 				<td>
 				{ this.props.canDelete && this.props.canDelete == true &&
 					<button type="button" className="btn btn-danger btn-sm" onClick={(e) => this.handleDelete(e)}>	

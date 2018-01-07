@@ -16,10 +16,19 @@ class UserDetailWithoutCollections extends React.Component {
 	}
 
 	render() {
+		if (!this.props.user) {
+			return (
+					<div className="col-md-6">
+						<h5 className=" text-center">
+							The user is not defined!
+						</h5>
+					</div>
+					);
+		}
 		const user = this.props.user;
 		return (
-				<div className="float-left">
-				<dl className="dl-horizontal card-description">
+				<div className="col-md-6">
+					<dl className="dl-horizontal card-description">
 
 					    <dt>Email</dt>
 					    <dd>{user.email}</dd>	

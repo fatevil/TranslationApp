@@ -1,5 +1,8 @@
 package cz.fel.cvut.translationapp.config;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.User;
@@ -9,35 +12,37 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
 
 import cz.fel.cvut.translationapp.model.Admin;
+import cz.fel.cvut.translationapp.service.LoginService;
 import cz.fel.cvut.translationapp.service.repository.AdminRepository;
 import cz.fel.cvut.translationapp.service.repository.UserRepository;
 
 @Component
 public class SpringDataJpaUserDetailsService implements UserDetailsService {
 
-	private UserRepository userRepository;
-	private AdminRepository adminRepository;
+
+	@PersistenceContext
+	private EntityManager em;
 
 	@Autowired
-	public SpringDataJpaUserDetailsService(UserRepository userRepository, AdminRepository adminRepository) {
-		this.userRepository = userRepository;
-		this.adminRepository = adminRepository;
-	}
-
+	private LoginService loginService;
+	
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		Admin admin = adminRepository.findByEmail(username);
+		Admin admin = loginService.findAdminByEmail(username);
+		
 		if (admin != null) {
+			System.out.println("ADMIN, USER ");
 			return new User(admin.getEmail(), admin.getPassword(),
-					AuthorityUtils.commaSeparatedStringToAuthorityList("ADMIN"));
+					AuthorityUtils.commaSeparatedStringToAuthorityList("ROLE_ADMIN, ROLE_USER"));
 		}
 
-		cz.fel.cvut.translationapp.model.User user = userRepository.findByEmail(username);
+		cz.fel.cvut.translationapp.model.User user = loginService.findUserByEmail(username);
 		if (user == null) {
 			return null;
 		}
+		System.out.println("USER ");
 		return new User(user.getEmail(), user.getPassword(),
-				AuthorityUtils.commaSeparatedStringToAuthorityList("USER"));
+				AuthorityUtils.commaSeparatedStringToAuthorityList("ROLE_USER"));
 	}
 
 }

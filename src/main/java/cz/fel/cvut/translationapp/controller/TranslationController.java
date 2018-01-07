@@ -28,13 +28,16 @@ public class TranslationController {
 
 	@PostMapping("/translate")
 	public @ResponseBody Translation create(@ModelAttribute TranslationCreateRequest request) throws Exception {
+		System.out.println(request);
 		Translation t;
 		switch (request.getProvider()) {
 		case "yandex":
-			t = yandexTranslationProvider.translate(request.getOriginalText(), request.getTextFrom(), request.getTextTo());
+			t = yandexTranslationProvider.translate(request.getOriginalText(), request.getTextFrom(),
+					request.getTextTo());
 			break;
 		case "dummy":
-			t = dummyTranslationProvider.translate(request.getOriginalText(), request.getTextFrom(), request.getTextTo());
+			t = dummyTranslationProvider.translate(request.getOriginalText(), request.getTextFrom(),
+					request.getTextTo());
 			break;
 		default:
 			throw new UnsupportedTranslationProviderException("Selected translation provider is not supported.");
@@ -42,6 +45,7 @@ public class TranslationController {
 
 		Authentication auth = beanFactory.getBean(Authentication.class);
 		t.setUser(auth.getCurrentUser());
+		System.out.println(t.getUser());
 		translationRepository.save(t);
 		return t;
 	}

@@ -4,40 +4,54 @@ const UserDetailWithoutCollections = require('./UserDetailWithoutCollections');
 const TranslationTable = require("./../translation/TranslationTable");
 const TranslationRow = require("./../translation/TranslationRow");
 const currentUser = require('../../currentUser');
+const putTogether = require('../../util/arrayUtils').putTogether;
 
 
 class UserProfile extends React.Component{
 	constructor(props) {
 		super(props);
-		this.state = {translations: []};
+		this.state = {translations: [], canDelete: false};
 		if (this.props.location && this.props.location.state && this.props.location.state.user){ 
-			this.state.user = this.props.locations.state.user;
+			this.state.user = this.props.location.state.user;
 		}
 		this.loadTranslations = this.loadTranslations.bind(this);
 	}
 
 	componentDidMount() {
-		let user;
-		if (!this.state.user) {
-			console.log("none set up");
-			
-			let userPromise = currentUser();
-			console.log(userPromise);
-			
-			user = userPromise.then(response => {
+			currentUser().then(response => {
 				return response.entity;
-			}).then(user => {
-				loadTranslations(user.id);
+			}).then(currentUser => {
+				if (!this.state.user) {
+					this.state.user = currentUser;
+					this.loadTranslations(currentUser.id);
+					
+					// user can delete his own translations
+					this.state.canDelete = true;
+				} else {
+					let displayedUser = this.props.location.state.user;
+					this.state.user = displayedUser;
+					this.loadTranslations(displayedUser.id);
+					
+					//admin can delete translations
+					this.state.canDelete = currentUser.admin;
+				}		
+				
+				
 			});		
-		} else {
-			user = this.props.location.state.user;
-			this.loadTranslations(user.id);
-		}
+		
 	}
 	
-	loadTranslations	(userId) {
+	loadTranslations(userId) {
 		client({method: 'GET', path: '/api/users/' + userId + "/translations"}).done(response => {
-			this.state.translations = response.entity._embedded.dummyTranslations;
+			if (response.entity._embedded) {
+				if (response.entity._embedded.dummyTranslations) {	
+				    putTogether(this.state.translations, response.entity._embedded.dummyTranslations);
+				}
+				if (response.entity._embedded.yandexTranslations) {
+				    putTogether(this.state.translations, response.entity._embedded.yandexTranslations);
+				}
+			}
+
 			this.forceUpdate();
 		});	
 	}
@@ -47,22 +61,21 @@ class UserProfile extends React.Component{
 			return <div/>;
 		}
 		
-		const user = this.props.location.state.user;
 		let i = 0;
 		let translationRows = [];
 		if (this.state.translations) {
 			translationRows = this.state.translations.map(translation => {
 				i++;
 				let keyVar = "translation" + i;	
-				return <TranslationRow key={keyVar} translation={translation}/>
+				return <TranslationRow key={keyVar} canDelete={this.state.canDelete} translation={translation}/>
 			}
 			);	
 		}
 
 		return (
 			<div>
-				<UserDetailWithoutCollections user={user}/>
-				<TranslationTable heading={true} title="History of translations" translations={translationRows}/>
+				<UserDetailWithoutCollections user={this.state.user}/>
+				<TranslationTable canDelete={this.state.canDelete} heading={true} title="History of translations" translations={translationRows}/>
 			</div>
 		);
 	}

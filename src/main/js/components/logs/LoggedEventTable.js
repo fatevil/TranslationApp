@@ -4,7 +4,8 @@ const ReactDOM = require('react-dom');
 const client = require('../../client');
 import { FormGroup, FormControl, ControlLabel, Button, Panel } from "react-bootstrap/lib"
 
-class TranslationTable extends React.Component{
+
+class LoggedEventTable extends React.Component{
 	
 	constructor(props) {
 		super(props);
@@ -25,24 +26,19 @@ class TranslationTable extends React.Component{
 				{ this.props.heading && this.props.heading == true &&
 					<thead>
 						<tr>
-							<th>From</th>
-							<th>To</th>
-							<th>Original</th>
-							<th>Translated</th>
-							<th>Engine</th>
-							{ this.props.canDelete && this.props.canDelete == true &&
-								<th></th>
-							}
+							<th>Author</th>
+							<th>Time</th>
+							<th>Description</th>
 						</tr>
 					</thead>
 				}
 					<tbody>
-					{this.props.translations && this.props.translations.length > 0 &&  
-						this.props.translations
+					{this.props.loggedEvents && this.props.loggedEvents.length > 0 &&  
+						this.props.loggedEvents
 					}
 					</tbody>
 				</table>
-				{this.props.translations && this.props.translations.length == 0 &&
+				{this.props.loggedEvents && this.props.loggedEvents.length == 0 &&
 					<div className="container">
 						<h5 className=" text-center">
 							The list is empty
@@ -54,4 +50,4 @@ class TranslationTable extends React.Component{
 	}
 }
 
-module.exports = TranslationTable;
+module.exports = LoggedEventTable;

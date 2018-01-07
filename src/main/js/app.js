@@ -13,6 +13,7 @@ const AdminUserProfile= require('./components/admin/AdminUserProfile');
 import { Switch, Route } from 'react-router-dom'
 const Header = require('./components/Header');
 const Friends = require('./components/users/Friends');
+const LogsOverview = require('./components/logs/LogsOverview');
 
 class App extends React.Component {
 
@@ -29,6 +30,8 @@ class App extends React.Component {
 						<Route path='/user' component={UserProfile}/>
 						<Route path="/translate" exact component={Home} />
 						<Route path="/friendlist" exact component={Friends} />
+						<Route path="/users" exact component={UserOverview} />
+						<Route path="/logs" exact component={LogsOverview} />
 					</div>
 				);
 	}

@@ -5,32 +5,36 @@ const UserList = require('./UserList');
 import { Link } from 'react-router-dom'
 import { FormGroup, FormControl, ControlLabel, Button, Panel } from "react-bootstrap/lib"
 const currentUser = require('../../currentUser');
-
+const putTogether = require('../../util/arrayUtils').putTogether;
 
 class Friends extends React.Component {
 
 	constructor(props) {
 		super(props);	
-		this.state = {friends: [], email: ''};
+		this.state = {friends: [], email: '', canDelete: true};
 	    this.handleClick = this.handleClick.bind(this);
 	}
 
 	
 	componentDidMount() {		
-		const state = this.state;
-		const user = CurrentUser.instance;
-		
-		client({method: 'GET', path: '/api/users/' + user.id + "/friends"}).done(response => {
-			this.state.friends = response.entity._embedded.users;
-			this.forceUpdate();
-		});	
+		currentUser().done(response => {
+			client({method: 'GET', path: '/api/users/' + response.entity.id + "/friends"}).done(response => {
+				if (response.entity._embedded) {
+					if (response.entity._embedded.users) {	
+					    putTogether(this.state.friends, response.entity._embedded.users);
+					}
+					if (response.entity._embedded.admins) {
+					    putTogether(this.state.friends, response.entity._embedded.admins);
+					}
+				}
+				this.forceUpdate();
+			});	
+		});			
 	}
 	
 	handleClick() {
 		const requestObject = {method: 'POST', path: '/friends', params: {email: this.state.email}}; 
-		
 		client(requestObject).done(response => {
-			console.log(response.entity);
 			if (response.entity) {
 			    let newArray = this.state.friends.slice();    
 			    newArray.push(response.entity);   
@@ -52,7 +56,7 @@ class Friends extends React.Component {
 				          	</div>
 				     </div>
 				
-					<UserList users={this.state.friends}/>
+					<UserList canDelete={false} canRemoveFriend={true} users={this.state.friends}/>
 				</div>
 				)
 	}

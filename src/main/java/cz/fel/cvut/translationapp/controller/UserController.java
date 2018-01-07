@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import cz.fel.cvut.translationapp.model.User;
+import cz.fel.cvut.translationapp.model.dto.UserDto;
 import cz.fel.cvut.translationapp.security.Authentication;
 import cz.fel.cvut.translationapp.service.repository.UserRepository;
 

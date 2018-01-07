@@ -1,11 +1,12 @@
 package cz.fel.cvut.translationapp.model;
 
 import java.util.Date;
-import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.ColumnResult;
+import javax.persistence.ConstructorResult;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -15,15 +16,22 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
+import javax.persistence.OrderBy;
+import javax.persistence.SqlResultSetMapping;
 import javax.persistence.Table;
 
+import org.dom4j.util.UserDataAttribute;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.NamedQueries;
+import org.hibernate.annotations.NamedQuery;
+import org.hibernate.annotations.Type;
 import org.hibernate.validator.constraints.Email;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import cz.fel.cvut.translationapp.model.dto.UserDto;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
@@ -34,9 +42,14 @@ import lombok.ToString;
 @Data
 @Entity
 @Inheritance
-@ToString(exclude = {"password", "friends"})
+@ToString(exclude = { "password", "friends" })
 @Table(name = "user")
-@EqualsAndHashCode(exclude="friends")
+@EqualsAndHashCode(exclude = "friends")
+@NamedQueries({ @NamedQuery(name = "User.DeleteAllUsers", query = "DELETE FROM User"),
+			 @NamedQuery(name = "User.findByEmail", query = "SELECT u FROM User u WHERE u.email = ?"),
+		// @NamedQuery(name = "User.deletelAll", query = "DELETE FROM User"),
+		// @NamedQuery(name = "User.deletelAll", query = "DELETE FROM User")
+})
 public class User {
 
 	public static final PasswordEncoder PASSWORD_ENCODER = new BCryptPasswordEncoder();
@@ -47,11 +60,12 @@ public class User {
 
 	@Email
 	@Column(unique = true)
-	private String email;	
+	private String email;
 
 	@JsonIgnore
 	private String password;
 
+	@OrderBy("creationDate")
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private Set<Translation> translations;
 
@@ -61,10 +75,10 @@ public class User {
 	private Set<User> friends;
 
 	private final boolean admin = false;
-	
+
 	@CreationTimestamp
 	private Date creationDate;
-	
+
 	public User() {
 	}
 

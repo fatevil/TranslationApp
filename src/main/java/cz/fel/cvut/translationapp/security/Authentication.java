@@ -19,7 +19,15 @@ public class Authentication {
 	private AdminRepository adminRepository;
 
 	public User getCurrentUser() {
-		if (SecurityContextHolder.getContext().getAuthentication().getAuthorities().contains("ADMIN")) {
+		System.out.println(SecurityContextHolder.getContext().getAuthentication().getDetails());
+		System.out.println(SecurityContextHolder.getContext().getAuthentication().getName());
+		System.out.println(SecurityContextHolder.getContext().getAuthentication().getPrincipal());
+		System.out.println("Gonna do authorities");
+		SecurityContextHolder.getContext().getAuthentication().getAuthorities().forEach(System.out::println);
+		System.out.println(SecurityContextHolder.getContext().getAuthentication().getCredentials());
+		
+		
+		if (SecurityContextHolder.getContext().getAuthentication().getAuthorities().contains("ROLE_ADMIN")) {
 			Admin admin = adminRepository.findByEmail(SecurityContextHolder.getContext().getAuthentication().getName());
 			return admin;
 		} else {

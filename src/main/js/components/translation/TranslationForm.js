@@ -7,6 +7,7 @@ const currentUser = require('../../currentUser');
 const TranslationTable = require("./TranslationTable")
 const TranslationRow = require("./TranslationRow")
 import { FormGroup, FormControl, ControlLabel, Button, Panel } from "react-bootstrap/lib"
+const putTogether = require('../../util/arrayUtils').putTogether;
 
 class TranslationForm extends React.Component {
 
@@ -26,8 +27,8 @@ class TranslationForm extends React.Component {
 			console.log("translate, done: reponse.entity");
 			console.log(response.entity);
 
-		    let newArray = this.state.newTranslations.slice();    
-		    newArray.push(response.entity);   
+		    let newArray = this.state.newTranslations.slice();
+		    newArray.push(response.entity);
 		    this.setState({newTranslations:newArray});			
 		});
 	}
@@ -35,7 +36,16 @@ class TranslationForm extends React.Component {
 	componentDidMount() {
 		currentUser().done(response => {
 			client({method: 'GET', path: '/api/users/' + response.entity.id + "/translations"}).done(response => {
-				this.state.translations = response.entity._embedded.dummyTranslations;
+				
+				if (response.entity._embedded) {
+					if (response.entity._embedded.dummyTranslations) {	
+					    putTogether(this.state.translations, response.entity._embedded.dummyTranslations);
+					}
+					if (response.entity._embedded.yandexTranslations) {
+					    putTogether(this.state.translations, response.entity._embedded.yandexTranslations);
+					}
+				}
+				
 				this.forceUpdate();
 			});	
 		});		
@@ -48,7 +58,7 @@ class TranslationForm extends React.Component {
 			translationRows = this.state.translations.map(translation => {
 				i++;
 				let keyVar = "translation" + i;	
-				return <TranslationRow key={keyVar} translation={translation}/>
+				return <TranslationRow key={keyVar} canDelete={true} translation={translation}/>
 			}
 			);	
 		}
@@ -57,7 +67,7 @@ class TranslationForm extends React.Component {
 			newTranslationRows = this.state.newTranslations.map(translation => {
 				i++;
 				let keyVar = "translation" + i;	
-				return <TranslationRow key={keyVar} translation={translation}/>
+				return <TranslationRow key={keyVar} canDelete={true} translation={translation}/>
 			}
 			);	
 		}
@@ -107,8 +117,8 @@ class TranslationForm extends React.Component {
 				       		<textarea className="form-control" onChange={e => {this.state.text = e.target.value} } rows="3"></textarea>
 				       </div>
 			        </FormGroup>
-					<TranslationTable translations={newTranslationRows}/>
-					<TranslationTable heading={true} title="History of translations" translations={translationRows}/>
+					<TranslationTable canDelete={true} translations={newTranslationRows}/>
+					<TranslationTable canDelete={true} heading={true} title="History of translations" translations={translationRows}/>
 				</div>
 				);
 	}
