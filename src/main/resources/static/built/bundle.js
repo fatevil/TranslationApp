@@ -64,13 +64,13 @@
 	var Main = __webpack_require__(658);
 	var Home = __webpack_require__(659);
 	var UserOverview = __webpack_require__(661);
-	var AdminUsersOverview = __webpack_require__(662);
-	var Login = __webpack_require__(664);
-	var AdminUserProfile = __webpack_require__(665);
+	var AdminUsersOverview = __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"./components/admin/AdminUsersOverview\""); e.code = 'MODULE_NOT_FOUND'; throw e; }()));
+	var Login = __webpack_require__(662);
+	var AdminUserProfile = __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"./components/admin/AdminUserProfile\""); e.code = 'MODULE_NOT_FOUND'; throw e; }()));
 	
-	var Header = __webpack_require__(666);
-	var Friends = __webpack_require__(667);
-	var LogsOverview = __webpack_require__(668);
+	var Header = __webpack_require__(663);
+	var Friends = __webpack_require__(664);
+	var LogsOverview = __webpack_require__(665);
 	
 	var App = function (_React$Component) {
 		_inherits(App, _React$Component);
@@ -68104,211 +68104,6 @@
 /* 662 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	'use strict';
-	"strict mode";
-	
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-	
-	var _reactRouterDom = __webpack_require__(1);
-	
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-	
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-	
-	var React = __webpack_require__(5);
-	var client = __webpack_require__(224);
-	var AdminUserList = __webpack_require__(663);
-	
-	var AdminUsersOverview = function (_React$Component) {
-		_inherits(AdminUsersOverview, _React$Component);
-	
-		function AdminUsersOverview(props) {
-			_classCallCheck(this, AdminUsersOverview);
-	
-			var _this = _possibleConstructorReturn(this, (AdminUsersOverview.__proto__ || Object.getPrototypeOf(AdminUsersOverview)).call(this, props));
-	
-			_this.state = { users: [], admins: [] };
-			return _this;
-		}
-	
-		_createClass(AdminUsersOverview, [{
-			key: 'componentDidMount',
-			value: function componentDidMount() {
-				var _this2 = this;
-	
-				client({ method: 'GET', path: '/api/users' }).done(function (response) {
-					_this2.setState({ users: response.entity._embedded.users });
-					_this2.setState({ admins: response.entity._embedded.admins });
-				});
-			}
-		}, {
-			key: 'render',
-			value: function render() {
-				return React.createElement(
-					'div',
-					null,
-					React.createElement(AdminUserList, { users: this.state.users }),
-					React.createElement(AdminUserList, { users: this.state.admins })
-				);
-			}
-		}]);
-	
-		return AdminUsersOverview;
-	}(React.Component);
-	
-	module.exports = AdminUsersOverview;
-
-/***/ }),
-/* 663 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-	
-	var _react = __webpack_require__(5);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	var _reactRouterDom = __webpack_require__(1);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-	
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-	
-	var client = __webpack_require__(224);
-	
-	var AdminUserList = function (_React$Component) {
-		_inherits(AdminUserList, _React$Component);
-	
-		function AdminUserList(props) {
-			_classCallCheck(this, AdminUserList);
-	
-			return _possibleConstructorReturn(this, (AdminUserList.__proto__ || Object.getPrototypeOf(AdminUserList)).call(this, props));
-		}
-	
-		_createClass(AdminUserList, [{
-			key: 'componentDidMount',
-			value: function componentDidMount() {}
-		}, {
-			key: 'render',
-			value: function render() {
-				var users = this.props.users.map(function (user) {
-					return _react2.default.createElement(AdminUserRow, { key: user._links.self.href, user: user });
-				});
-				return _react2.default.createElement(
-					'table',
-					{ className: 'table table-hover' },
-					_react2.default.createElement(
-						'thead',
-						null,
-						_react2.default.createElement(
-							'tr',
-							null,
-							_react2.default.createElement(
-								'th',
-								null,
-								'ID'
-							),
-							_react2.default.createElement(
-								'th',
-								null,
-								'Email'
-							),
-							_react2.default.createElement('th', null)
-						)
-					),
-					_react2.default.createElement(
-						'tbody',
-						null,
-						users
-					)
-				);
-			}
-		}]);
-	
-		return AdminUserList;
-	}(_react2.default.Component);
-	
-	var AdminUserRow = function (_React$Component2) {
-		_inherits(AdminUserRow, _React$Component2);
-	
-		function AdminUserRow(props) {
-			_classCallCheck(this, AdminUserRow);
-	
-			var _this2 = _possibleConstructorReturn(this, (AdminUserRow.__proto__ || Object.getPrototypeOf(AdminUserRow)).call(this, props));
-	
-			_this2.state = { render: true };
-			return _this2;
-		}
-	
-		_createClass(AdminUserRow, [{
-			key: 'handleDelete',
-			value: function handleDelete(e) {
-				var _this3 = this;
-	
-				var parent = this.props.parent;
-	
-				client({ method: 'DELETE', path: "/api/users/" + this.props.user.id }).done(function (response) {
-					_this3.state.render = false;
-					_this3.forceUpdate();
-				});
-			}
-		}, {
-			key: 'render',
-			value: function render() {
-				var _this4 = this;
-	
-				if (this.state.render == false) {
-					return null;
-				}
-				return _react2.default.createElement(
-					'tr',
-					null,
-					_react2.default.createElement(
-						'td',
-						null,
-						this.props.user.id
-					),
-					_react2.default.createElement(
-						'td',
-						null,
-						_react2.default.createElement(
-							_reactRouterDom.Link,
-							{ to: { pathname: '/user', state: { user: this.props.user } } },
-							this.props.user.email
-						)
-					),
-					_react2.default.createElement(
-						'td',
-						null,
-						_react2.default.createElement(
-							'button',
-							{ type: 'button', className: 'btn btn-danger btn-sm', onClick: function onClick(e) {
-									return _this4.handleDelete(e);
-								} },
-							'Delete'
-						)
-					)
-				);
-			}
-		}]);
-	
-		return AdminUserRow;
-	}(_react2.default.Component);
-	
-	module.exports = AdminUserList;
-
-/***/ }),
-/* 664 */
-/***/ (function(module, exports, __webpack_require__) {
-
 	"use strict";
 	
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -68414,299 +68209,7 @@
 	module.exports = Login;
 
 /***/ }),
-/* 665 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-	
-	var _react = __webpack_require__(5);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-	
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-	
-	var client = __webpack_require__(224);
-	var UserDetailWithoutCollections = __webpack_require__(273);
-	var FormatedDatetime = __webpack_require__(532);
-	
-	var AdminUserProfile = function (_React$Component) {
-		_inherits(AdminUserProfile, _React$Component);
-	
-		function AdminUserProfile(props) {
-			_classCallCheck(this, AdminUserProfile);
-	
-			var _this = _possibleConstructorReturn(this, (AdminUserProfile.__proto__ || Object.getPrototypeOf(AdminUserProfile)).call(this, props));
-	
-			_this.state = {};
-			return _this;
-		}
-	
-		_createClass(AdminUserProfile, [{
-			key: 'componentDidMount',
-			value: function componentDidMount() {
-				var _this2 = this;
-	
-				var eventsLink = this.props.location.state.user._links.loggedEvents;
-				if (eventsLink != undefined) {
-					client({ method: 'GET', path: eventsLink.href }).done(function (response) {
-						_this2.setState({ loggedEvents: response.entity._embedded.loggedEvents });
-					});
-				}
-			}
-		}, {
-			key: 'render',
-			value: function render() {
-				var user = this.props.location.state.user;
-				return _react2.default.createElement(
-					'div',
-					null,
-					_react2.default.createElement(UserDetailWithoutCollections, { user: user }),
-					_react2.default.createElement(TranslationTable, { translations: user.translations }),
-					this.state.loggedEvents != undefined && _react2.default.createElement(LoggedEventTable, { events: this.state.loggedEvents })
-				);
-			}
-		}]);
-	
-		return AdminUserProfile;
-	}(_react2.default.Component);
-	
-	var TranslationTable = function (_React$Component2) {
-		_inherits(TranslationTable, _React$Component2);
-	
-		function TranslationTable(props) {
-			_classCallCheck(this, TranslationTable);
-	
-			return _possibleConstructorReturn(this, (TranslationTable.__proto__ || Object.getPrototypeOf(TranslationTable)).call(this, props));
-		}
-	
-		_createClass(TranslationTable, [{
-			key: 'componentDidMount',
-			value: function componentDidMount() {}
-		}, {
-			key: 'render',
-			value: function render() {
-				var _this4 = this;
-	
-				var translations = this.props.translations.map(function (translation) {
-					var keyVar = "translation" + translation.id;
-					return _react2.default.createElement(TranslationRow, { key: keyVar, parent: _this4, translation: translation });
-				});
-	
-				return _react2.default.createElement(
-					'table',
-					{ className: 'table table-hover' },
-					_react2.default.createElement(
-						'thead',
-						null,
-						_react2.default.createElement(
-							'tr',
-							null,
-							_react2.default.createElement(
-								'th',
-								null,
-								'From'
-							),
-							_react2.default.createElement(
-								'th',
-								null,
-								'To'
-							),
-							_react2.default.createElement(
-								'th',
-								null,
-								'Original'
-							),
-							_react2.default.createElement(
-								'th',
-								null,
-								'Translated'
-							),
-							_react2.default.createElement('th', null)
-						)
-					),
-					_react2.default.createElement(
-						'tbody',
-						null,
-						translations
-					)
-				);
-			}
-		}]);
-	
-		return TranslationTable;
-	}(_react2.default.Component);
-	
-	var TranslationRow = function (_React$Component3) {
-		_inherits(TranslationRow, _React$Component3);
-	
-		function TranslationRow(props) {
-			_classCallCheck(this, TranslationRow);
-	
-			var _this5 = _possibleConstructorReturn(this, (TranslationRow.__proto__ || Object.getPrototypeOf(TranslationRow)).call(this, props));
-	
-			_this5.state = { render: true };
-			return _this5;
-		}
-	
-		_createClass(TranslationRow, [{
-			key: 'handleDelete',
-			value: function handleDelete(e) {
-				var _this6 = this;
-	
-				var parent = this.props.parent;
-	
-				client({ method: 'DELETE', path: "/api/dummyTranslations/" + this.props.translation.id }).done(function (response) {
-					_this6.state.render = false;
-					_this6.forceUpdate();
-				});
-			}
-		}, {
-			key: 'render',
-			value: function render() {
-				var _this7 = this;
-	
-				var event = this.props.event;
-	
-				if (this.state.render == false) {
-					return null;
-				}
-	
-				return _react2.default.createElement(
-					'tr',
-					null,
-					_react2.default.createElement(
-						'td',
-						null,
-						this.props.translation.textFrom
-					),
-					_react2.default.createElement(
-						'td',
-						null,
-						this.props.translation.textTo
-					),
-					_react2.default.createElement(
-						'td',
-						null,
-						this.props.translation.textOriginal
-					),
-					_react2.default.createElement(
-						'td',
-						null,
-						this.props.translation.textTranslated
-					),
-					_react2.default.createElement(
-						'td',
-						null,
-						_react2.default.createElement(
-							'button',
-							{ type: 'button', className: 'btn btn-danger btn-sm', onClick: function onClick(e) {
-									return _this7.handleDelete(e);
-								} },
-							'Delete'
-						)
-					)
-				);
-			}
-		}]);
-	
-		return TranslationRow;
-	}(_react2.default.Component);
-	
-	var LoggedEventTable = function (_React$Component4) {
-		_inherits(LoggedEventTable, _React$Component4);
-	
-		function LoggedEventTable(props) {
-			_classCallCheck(this, LoggedEventTable);
-	
-			return _possibleConstructorReturn(this, (LoggedEventTable.__proto__ || Object.getPrototypeOf(LoggedEventTable)).call(this, props));
-		}
-	
-		_createClass(LoggedEventTable, [{
-			key: 'render',
-			value: function render() {
-				var events = this.props.events.map(function (event) {
-					var keyVar = "event" + event.id;
-					return _react2.default.createElement(LoggedEventRow, { key: keyVar, event: event });
-				});
-				return _react2.default.createElement(
-					'table',
-					{ className: 'table table-hover' },
-					_react2.default.createElement(
-						'thead',
-						null,
-						_react2.default.createElement(
-							'tr',
-							null,
-							_react2.default.createElement(
-								'th',
-								null,
-								'Created'
-							),
-							_react2.default.createElement(
-								'th',
-								null,
-								'Description'
-							),
-							_react2.default.createElement('th', null)
-						)
-					),
-					_react2.default.createElement(
-						'tbody',
-						null,
-						events
-					)
-				);
-			}
-		}]);
-	
-		return LoggedEventTable;
-	}(_react2.default.Component);
-	
-	var LoggedEventRow = function (_React$Component5) {
-		_inherits(LoggedEventRow, _React$Component5);
-	
-		function LoggedEventRow(props) {
-			_classCallCheck(this, LoggedEventRow);
-	
-			return _possibleConstructorReturn(this, (LoggedEventRow.__proto__ || Object.getPrototypeOf(LoggedEventRow)).call(this, props));
-		}
-	
-		_createClass(LoggedEventRow, [{
-			key: 'render',
-			value: function render() {
-				var event = this.props.event;
-				return _react2.default.createElement(
-					'tr',
-					null,
-					_react2.default.createElement(
-						'td',
-						null,
-						_react2.default.createElement(FormatedDatetime, { date: event.creationDate })
-					),
-					_react2.default.createElement(
-						'td',
-						null,
-						event.description
-					)
-				);
-			}
-		}]);
-	
-		return LoggedEventRow;
-	}(_react2.default.Component);
-	
-	module.exports = AdminUserProfile;
-
-/***/ }),
-/* 666 */
+/* 663 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -68829,7 +68332,7 @@
 	module.exports = Header;
 
 /***/ }),
-/* 667 */
+/* 664 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -68939,7 +68442,7 @@
 	module.exports = Friends;
 
 /***/ }),
-/* 668 */
+/* 665 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -68959,8 +68462,8 @@
 	var ReactDOM = __webpack_require__(77);
 	var client = __webpack_require__(224);
 	var currentUser = __webpack_require__(657);
-	var LoggedEventTable = __webpack_require__(669);
-	var LoggedEventRow = __webpack_require__(670);
+	var LoggedEventTable = __webpack_require__(666);
+	var LoggedEventRow = __webpack_require__(667);
 	var putTogether = __webpack_require__(531).putTogether;
 	
 	var LogsOverview = function (_React$Component) {
@@ -69013,7 +68516,7 @@
 	module.exports = LogsOverview;
 
 /***/ }),
-/* 669 */
+/* 666 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -69108,7 +68611,7 @@
 	module.exports = LoggedEventTable;
 
 /***/ }),
-/* 670 */
+/* 667 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
