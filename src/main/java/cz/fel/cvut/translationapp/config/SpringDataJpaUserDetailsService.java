@@ -19,9 +19,7 @@ import cz.fel.cvut.translationapp.service.repository.UserRepository;
 @Component
 public class SpringDataJpaUserDetailsService implements UserDetailsService {
 
-//	TRANSAKCE
-	
-	
+
 	@PersistenceContext
 	private EntityManager em;
 

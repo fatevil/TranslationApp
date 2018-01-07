@@ -64,9 +64,7 @@
 	var Main = __webpack_require__(658);
 	var Home = __webpack_require__(659);
 	var UserOverview = __webpack_require__(661);
-	var AdminUsersOverview = __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"./components/admin/AdminUsersOverview\""); e.code = 'MODULE_NOT_FOUND'; throw e; }()));
 	var Login = __webpack_require__(662);
-	var AdminUserProfile = __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"./components/admin/AdminUserProfile\""); e.code = 'MODULE_NOT_FOUND'; throw e; }()));
 	
 	var Header = __webpack_require__(663);
 	var Friends = __webpack_require__(664);

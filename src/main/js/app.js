@@ -7,9 +7,7 @@ const UserProfile = require('./components/users/UserProfile');
 const Main = require('./components/Main');
 const Home = require('./components/Home');
 const UserOverview = require('./components/users/UserOverview');	
-const AdminUsersOverview = require('./components/admin/AdminUsersOverview');
 const Login = require('./auth/Login');
-const AdminUserProfile= require('./components/admin/AdminUserProfile');
 import { Switch, Route } from 'react-router-dom'
 const Header = require('./components/Header');
 const Friends = require('./components/users/Friends');
