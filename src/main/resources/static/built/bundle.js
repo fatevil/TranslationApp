@@ -67901,11 +67901,6 @@
 										'option',
 										{ value: 'en' },
 										'Angli\u010Dtina'
-									),
-									React.createElement(
-										'option',
-										{ value: 'de' },
-										'N\u011Bm\u010Dina'
 									)
 								)
 							),
@@ -67934,11 +67929,6 @@
 										'option',
 										{ value: 'cz' },
 										'\u010Cestina'
-									),
-									React.createElement(
-										'option',
-										{ value: 'de' },
-										'N\u011Bm\u010Dina'
 									)
 								)
 							),

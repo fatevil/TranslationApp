@@ -82,7 +82,6 @@ class TranslationForm extends React.Component {
 				              componentClass="select" placeholder="select" onChange={e => {this.state.from = e.target.value} }>
 					          	<option value="cz">Čestina</option>
 					          	<option value="en">Angličtina</option>  
-					          	<option value="de">Němčina</option>
 					          </FormControl>
 					       </div>
 					       <div className="col-md-2 bottom-space text-left font-weight-bold ">
@@ -91,7 +90,6 @@ class TranslationForm extends React.Component {
 					          componentClass="select" placeholder="select" onChange={e => {this.state.to = e.target.value} }>
 					          	<option value="en">Angličtina</option>
 					          	<option value="cz">Čestina</option>
-					          	<option value="de">Němčina</option>
 					          </FormControl>
 					       </div>
 					       <div className="col-md-3 bottom-space text-left font-weight-bold ">
